@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<!-- [STUDIO:"activemq_publish"]<flow name="activemq_publish" doc:id="04e04b38-31b9-47d8-8e40-083be31c1124" >
+		<http:listener doc:name="Listener" doc:id="51868a44-a6f0-443e-9342-69cdade8b37c" config-ref="publish" path="${httpListener.path1}"/>
+		<logger level="INFO" doc:name="flow started" doc:id="68dbd04b-4242-47aa-8e1c-d29b2c6c7692" message='#["flow started"&#93;' />
+		<logger level="INFO" doc:name="payload" doc:id="c2fc9eea-1e09-4503-8ae9-f71b5c112678" message="#[payload&#93;"/>
+		<jms:publish doc:name="Publish" doc:id="426b8cd5-cdfc-4b9b-9346-f15b1f8771ed" destination="${jmsConfig.destination}" persistentDelivery="true" config-ref="JMS_Config" />
+		<logger level="INFO" doc:name="published successfully" doc:id="d2013ed4-1a1d-4852-8019-521a3d4dc679" message='#["published successfully"&#93;' />
+	</flow> [STUDIO] -->
+	<!-- [STUDIO:"activemq_consume"]<flow name="activemq_consume" doc:id="791769f3-a66f-4d16-8004-fd08a4317c26" >
+		<http:listener doc:name="Listener" doc:id="c9b5a082-4ff3-413f-bdff-5fcc90850f05" config-ref="consume" path="${httpListener.path2}"/>
+		<logger level="INFO" doc:name="flow started" doc:id="51bbb7ae-da4c-49ac-9fda-693f26b33ac3" message='#["flow started"&#93;'/>
+		<jms:consume doc:name="Consume" doc:id="c6793512-b10f-4c4f-a14e-00ccef032f8f" config-ref="JMS_Config" destination="${jmsConfig.destination}" maximumWait="${jmsConfig.maxWait}" maximumWaitUnit="MINUTES">
+			<jms:consumer-type >
+				<jms:queue-consumer />
+			</jms:consumer-type>
+		</jms:consume>
+		<logger level="INFO" doc:name="consumed successfully" doc:id="6a1ff21d-7973-412c-b883-ec96f2e5c3b8" message='#["consumed successfully"&#93;' />
+		<logger level="INFO" doc:name="printing payload" doc:id="1d15de6b-41e5-4040-860f-c66695f1a27e" message="#[payload&#93;"/>
+		<ee:transform doc:name="consumed data" doc:id="6ac2a38f-8a2f-4ac9-9435-f1e7d161e5c0">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+&#45;&#45;-
+payload&#93;&#93;></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<choice doc:name="Choice" doc:id="e92020b5-12fd-4f83-af80-5c92a6774e7f" >
+			<when expression="#[payload is Array&#93;">
+				<ee:transform doc:name="payload" doc:id="2b4e5949-1041-4a22-8909-bd598d3a4abd" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+&#45;&#45;-
+payload&#93;&#93;></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="payload" doc:id="94123856-2d4e-4434-92ec-b5f25cb1a476" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+&#45;&#45;-
+[payload&#93;&#93;&#93;></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</otherwise>
+		</choice>
+		<flow-ref doc:name="Flow Reference" doc:id="79223374-ba7c-4339-9135-7bf78ad10b3a" name="consumesubflowimplementation"/>
+	</flow> [STUDIO] -->
+	<flow name="activemqFlow" doc:id="c7334d53-04b9-43a8-a7a1-798849566f04" >
+		<jms:listener doc:name="On New Message" doc:id="707d2e1b-69f6-4dbf-9537-c74d76154160" config-ref="JMS_Config" destination="${jmsConfig.destination}" inboundContentType="application/json" inboundEncoding="UTF-8">
+			<jms:consumer-type >
+				<jms:queue-consumer />
+			</jms:consumer-type>
+		</jms:listener>
+		<logger level="INFO" doc:name="printing payload" doc:id="1719fa0b-2229-48f0-8c4d-b71bb0a41191" message="#[payload]" />
+		<ee:transform doc:name="Transform Message" doc:id="9691d5fd-84c7-496a-be01-a598ff0b3c35" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<choice doc:name="Choice" doc:id="9f828fe2-d488-44ed-8b8e-bb3abcec9f05" >
+			<when expression="#[payload is Array]" >
+				<ee:transform doc:name="payload" doc:id="ae99dd65-986b-4f73-ab21-68fa4a4952f3" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="payload" doc:id="387d1683-b77f-4f9f-a419-a2a7e735ae77" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+[payload]]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</otherwise>
+		</choice>
+		<flow-ref doc:name="Flow Reference" doc:id="0f0dd153-744d-4bc8-bd5b-b275fce7adb1" name="consumesubflowimplementation" />
+	</flow>
+</mule>

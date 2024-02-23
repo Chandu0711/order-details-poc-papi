@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="scheduler-test-suite.xml" />
+	<munit:test name="scheduler-test-suite-scheduler_flowTest" doc:id="4ac451ff-cd9d-4613-a111-483f1b57709d" description="Test">
+		<munit:behavior>
+			<munit-tools:mock-when doc:name="Mock when" doc:id="98189e0f-abd6-4c4d-8eb6-756f70b8ce1a" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="select" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="3208de97-e421-4045-bb73-a5d79bb07f16" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when" doc:id="8cea46eb-4780-45b8-93d6-07e3a0460f2b" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="delete" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="6f766924-13c7-48f5-84ff-588ce5584b28" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#["deleted successfully"]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="1c4f88f5-75dd-46df-a691-a54dc71f1d98" >
+				<munit:payload value="#[output application/json&#10;---&#10;readUrl('classpath://sample_data/deletefail.json','application/json')]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to scheduler_flow" doc:id="04404ad8-c3d1-4e45-925b-44623e13a0cc" name="scheduler_flow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="059d92fd-9105-4f62-b4aa-4edcd12e92b4" is="#[MunitTools::notNullValue()]" expression="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="scheduler-test-suite-scheduler_flowTest1" doc:id="09c80ebb-c168-470c-890a-3274984c1a6a" description="Test" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="97efac96-c96b-4e3a-be63-b3ca5668a5f3" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="select" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="3208de97-e421-4045-bb73-a5d79bb07f16" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when" doc:id="c679f665-91e1-4e59-b94f-97b2d0dab503" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="delete" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="6f766924-13c7-48f5-84ff-588ce5584b28" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="07c136cd-b327-482f-888e-733b4792c9cb" >
+				<munit:payload value="#[output application/json&#10;---&#10;readUrl('classpath://sample_data/deletesuccess.json','application/json')]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to scheduler_flow" doc:id="5fc3ecdd-9633-457b-899a-753b32c79029" name="scheduler_flow" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="26e5d45b-5680-4f8e-a3d3-94b244441ccc" is="#[MunitTools::notNullValue()]" expression="#[payload]" />
+		</munit:validation>
+	</munit:test>
+
+</mule>

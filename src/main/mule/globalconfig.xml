@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
+	<http:listener-config name="publish" doc:name="HTTP Listener config" doc:id="5bd9fce8-cfc9-466e-8f7f-a6d0a2ed4b77" >
+		<http:listener-connection host="${httpListener.host}" port="${httpListener.port1}" readTimeout="${httpListener.readTimeout}"/>
+	</http:listener-config>
+	<global-property doc:name="Global Property" doc:id="6dbcab73-a2af-49f1-b1a7-3a5cce60a399" name="mule.env" value="muleproperties" />
+	<configuration-properties doc:name="Configuration properties" doc:id="4579c5de-01e0-4013-ac4b-37e50a80361a" file="env/${mule.env}.yaml" />
+	<jms:config name="JMS_Config" doc:name="JMS Config" doc:id="353ba0c0-a053-4d93-980c-01d3ae15d299" >
+		<jms:active-mq-connection username="${secure::jmsConfig.username}" password="${secure::jmsConfig.password}" >
+			<jms:factory-configuration brokerUrl="${jmsConfig.brokerUrl}" />
+		</jms:active-mq-connection>
+	</jms:config>
+	<http:listener-config name="consume" doc:name="HTTP Listener config" doc:id="6869ebac-8319-4d56-83c3-6bdf9fa00085" >
+		<http:listener-connection host="${httpListener.host}" port="${httpListener.port2}" readTimeout="${httpListener.readTimeout}"/>
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="a1fe2245-ceca-4a1a-9aed-9743dc89b5d5" >
+		<http:request-connection host="${httpRequest.host}" port="${httpRequest.port}" />
+		<http:default-headers >
+			<http:default-header key="clientId" value="${secure::clientCredentials.clientid}" />
+			<http:default-header key="clientSecret" value="${secure::clientCredentials.clientsecret}" />
+		</http:default-headers>
+	</http:request-config>
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="a4ce337f-c070-4159-ab23-600fb407f737" >
+		<db:my-sql-connection host="${database.host}" port="${database.port}" user="${secure::database.user}" password="${secure::database.password}" database="${database.schema}" />
+	</db:config>
+	<wsc:config name="Web_Service_Consumer_Number" doc:name="Web Service Consumer Config" doc:id="e5c8cb36-aa23-448d-b0a3-74eb694707f3" >
+		<wsc:connection wsdlLocation="${WSDL.number}" service="NumberConversion" port="NumberConversionSoap" address="https://www.dataaccess.com/webservicesserver/NumberConversion.wso" />
+	</wsc:config>
+	<wsc:config name="Web_Service_Consumer_Siso" doc:name="Web Service Consumer Config" doc:id="18a3d29c-d8f2-4eff-8baa-394fe185dced" >
+		<wsc:connection wsdlLocation="${WSDL.siso}" service="CountryInfoService" port="CountryInfoServiceSoap" address="http://webservices.oorsprong.org/websamples.countryInfo/Countryinfoservice.wso" />
+	</wsc:config>
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="4a45bca1-0706-4e37-a126-a3d57f40c3b5" key="9398648659112233" file="env/secure-${mule.env}.yaml"/>
+</mule>

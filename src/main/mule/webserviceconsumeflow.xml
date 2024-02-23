@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd">
+	<sub-flow name="numberconsumesubflow" doc:id="929ee9f4-be9c-4814-983d-00c9697409f4" >
+		<logger level="INFO" doc:name="flow started" doc:id="b03e2698-875b-4bfd-8181-66ca28ad3ac2" message='#["consume flow started"]' />
+		<ee:transform doc:name="input" doc:id="9cbc9219-722d-4d15-b0c5-1a7f1774b9c4">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/xml
+ns ns0 http://www.dataaccess.com/webservicesserver/
+---
+{
+	ns0#NumberToDollars: {
+		ns0#dNum: payload.orderprice
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<wsc:consume operation="NumberToDollars" doc:name="num consume" doc:id="36bfba43-9246-46f1-8084-6c952889ccee" config-ref="Web_Service_Consumer_Number" />
+		<ee:transform doc:name="consumed data" doc:id="bfc6cda7-ed06-476b-b89e-af868d922975">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0ns ns0 http://www.dataaccess.com/webservicesserver/
+output application/xml
+---{    ns0#NumberToDollarsResponse: {        ns0#NumberToDollarsResult: payload.body.ns0#NumberToDollarsResponse.ns0#NumberToDollarsResult    }}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="printing payload" doc:id="7a3abd32-9b59-4913-a642-11c93eb881d2" message="#[payload]"/>
+		<set-variable value="#[%dw 2.0&#10;output application/json&#10;ns ns0 http://www.dataaccess.com/webservicesserver/&#10;---&#10;{&#10;    result: payload.ns0#NumberToDollarsResponse.ns0#NumberToDollarsResult&#10;}]" doc:name="characterdollar" doc:id="7e9f83e5-6d8e-4ae0-bb12-c7d842ee1411" variableName="characterdollar"/>
+		<logger level="INFO" doc:name="flow completed" doc:id="dc676272-81cb-475f-9d75-93ae0e12f1d2" message='#["flow completed"]' />
+	</sub-flow>
+	<sub-flow name="sisocodeconsumesubflow" doc:id="78983237-c65a-4d90-845b-c3908c72e411" >
+		<logger level="INFO" doc:name="flow started" doc:id="41b269a3-84c3-4223-a8d5-e884362ecd4b" message='#["consume flow started"]' />
+		<ee:transform doc:name="input" doc:id="7726a035-af50-4378-9f4a-629bcec6c22c" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+ns ns0 http://www.oorsprong.org/websamples.countryinfo
+---
+{
+	ns0#ListOfCurrenciesByName: payload.ISOCode as String
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<wsc:consume operation="ListOfCurrenciesByName" doc:name="siso consume" doc:id="c4c09283-76f4-4512-943f-ccad2aa9e8e0" config-ref="Web_Service_Consumer_Siso" />
+		<logger level="INFO" doc:name="Logger" doc:id="dbb5bae9-eeed-4528-9135-f4eb38864ed1" message="#[payload]" />
+		<ee:transform doc:name="payload body" doc:id="69ebbc75-8007-4fab-9b74-b1361328ff84" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+payload.body]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="printing payload" doc:id="0f047bc5-9298-4ffb-80aa-2b401630428c" message="#[payload]"/>
+		<ee:transform doc:name="consumed data" doc:id="5adc9a2c-b92c-4d21-9a8a-e4aa9aaddd87" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+var currency = payload.ListOfCurrenciesByNameResponse.ListOfCurrenciesByNameResult.*tCurrency
+var code = vars.oldpayload.ISOCode
+---
+(currency filter ($.sISOCode == code)).sName  default ["UNKNOWN"]
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<set-variable value="#[payload[0]]" doc:name="listofcurrency" doc:id="9ec8d521-cf1b-4a06-a83a-a61fca25f3b1" variableName="listofcurrency"/>
+		<logger level="INFO" doc:name="flow completed" doc:id="ed01936e-0c19-4495-8c2c-97d530229126" message='#["flow completed"]' />
+	</sub-flow>
+</mule>

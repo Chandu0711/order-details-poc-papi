@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+    xmlns:http="http://www.mulesoft.org/schema/mule/http"
+    xmlns="http://www.mulesoft.org/schema/mule/core"
+    xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+    xmlns:db="http://www.mulesoft.org/schema/mule/db"
+    xmlns:batch="http://www.mulesoft.org/schema/mule/batch"
+    xmlns:soap="http://www.mulesoft.org/schema/mule/soap"
+    xmlns:scheduler="http://www.mulesoft.org/schema/mule/scheduler"
+    xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw"
+    xmlns:core="http://www.mulesoft.org/schema/mule/core"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+        http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+        http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+        http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
+        http://www.mulesoft.org/schema/mule/soap http://www.mulesoft.org/schema/mule/soap/current/mule-soap.xsd
+        http://www.mulesoft.org/schema/mule/scheduler http://www.mulesoft.org/schema/mule/scheduler/current/mule-scheduler.xsd
+        http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
+
+    <!-- ActiveMQ Consumer Flow -->
+
+    <!-- Process Order Flow -->
+
+    <!-- Scheduler to fetch records from the database -->
+	<flow name="scheduler_flow" initialState="started">
+        <!-- Database Select to fetch records -->
+        <scheduler doc:name="Scheduler" doc:id="90025b4d-e0ad-435c-ace3-61ad2011f608" >
+			<scheduling-strategy >
+				<fixed-frequency frequency="5" timeUnit="SECONDS"/>
+			</scheduling-strategy>
+		</scheduler>
+
+        <!-- Iterate over records and perform logic -->
+		<logger level="INFO" doc:name="flow started" doc:id="a0c0bb3f-73f9-4324-87f2-c934777f0faa" message='#["scheduler flow started"]'/>
+		<http:request method="GET" doc:name="select" doc:id="3208de97-e421-4045-bb73-a5d79bb07f16" config-ref="HTTP_Request_configuration" path="${httpRequest.path}" responseTimeout="${response.timeout}"/>
+		<logger level="INFO" doc:name="printing payload" doc:id="d3033f10-8b8b-401f-92e6-e6c933bcd73b" message="#[payload]"/>
+		<foreach doc:name="For Each" collection="#[payload]">
+			<choice doc:name="Delete Records">
+                <when expression="#[payload.orderprice == null or payload.orderprice == 0 or payload.orderqt == null or payload.orderqt == 0 or payload.code == 'UNKNOWN']">
+                    <!-- Delete records with null or zero orderPrice -->
+					<http:request method="DELETE" doc:name="delete" doc:id="6f766924-13c7-48f5-84ff-588ce5584b28" config-ref="HTTP_Request_configuration" path="${httpRequest.path}" responseTimeout="${response.timeout}"/>
+					<logger level="INFO" doc:name="success message" doc:id="90633d85-fcac-4264-b02b-713a4a2323bc" message='#["delete successfully"]'/>
+                
+</when>
+				<otherwise >
+					<ee:transform doc:name="default message" doc:id="0d92c6aa-3a2e-408a-b432-2124af55cdf2" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message":"no records found which satisfies the given conditions"
+}]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+				</otherwise>
+            
+</choice>
+        </foreach>
+    </flow>
+
+</mule>
+	

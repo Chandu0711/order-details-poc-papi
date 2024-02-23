@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="activemq-test-suite.xml" />
+	<munit:test name="activemq-test-suite-activemqFlowTest" doc:id="fd3b1c4d-9081-4d87-adb7-1daffddde8a6" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="97c8fad2-8e8d-43f6-aa87-7df7f4ed6936" processor="flow">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="c7334d53-04b9-43a8-a7a1-798849566f04" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when" doc:id="c0234209-3d9c-4e35-bbc7-a56823a7bd63" processor="choice">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="9f828fe2-d488-44ed-8b8e-bb3abcec9f05" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to activemqFlow" doc:id="2913b7d2-8044-4042-8b6c-6674b4f4abd1" name="activemqFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="3aa3ac91-a640-4365-946e-6aa8649b00c3" is="#[MunitTools::notNullValue()]" expression="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="activemq-test-suite-activemqFlow" doc:id="d56d5f74-aea3-4420-bbc6-bc6da4110aa0" description="Test" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="613495f5-66b9-4f11-8a03-969769012114" processor="flow" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="c7334d53-04b9-43a8-a7a1-798849566f04" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when" doc:id="e5839410-8c81-459c-b9f7-2d1ca6bfc186" processor="choice" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="9f828fe2-d488-44ed-8b8e-bb3abcec9f05" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="11a1cf58-1ca0-4546-a0c4-87e5627c6215" >
+				<munit:payload value="#[output application/json&#10;---&#10;readUrl('classpath://sample_data/example.json','application/json')]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to activemqFlow" doc:id="4c845044-5046-4f1b-b04b-c027c35934ac" name="activemqFlow" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="64bb3b76-7674-4b99-934d-d7069f70647a" is="#[MunitTools::notNullValue()]" expression="#[payload]" />
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

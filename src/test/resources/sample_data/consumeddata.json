@@ -1,0 +1,714 @@
+{
+  "headers": {
+    
+  },
+  "attachments": {
+    
+  },
+  "body": {
+    "ListOfCurrenciesByNameResponse": {
+      "ListOfCurrenciesByNameResult": {
+        "tCurrency": {
+          "sISOCode": "AFA",
+          "sName": "Afghanis"
+        },
+        "tCurrency": {
+          "sISOCode": "DZD",
+          "sName": "Algeria Dinars"
+        },
+        "tCurrency": {
+          "sISOCode": "MGA",
+          "sName": "Ariary"
+        },
+        "tCurrency": {
+          "sISOCode": "AWG",
+          "sName": "Aruba Guilders (also called Florins)"
+        },
+        "tCurrency": {
+          "sISOCode": "AUD",
+          "sName": "Australian Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "BSD",
+          "sName": "Bahamas Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "BHD",
+          "sName": "Bahrain Dinars"
+        },
+        "tCurrency": {
+          "sISOCode": "THB",
+          "sName": "Baht"
+        },
+        "tCurrency": {
+          "sISOCode": "PAB",
+          "sName": "Balboa"
+        },
+        "tCurrency": {
+          "sISOCode": "BBD",
+          "sName": "Barbados Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "BZD",
+          "sName": "Belize Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "BMD",
+          "sName": "Bermuda Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "ETB",
+          "sName": "Birr"
+        },
+        "tCurrency": {
+          "sISOCode": "VEB",
+          "sName": "Bolivares"
+        },
+        "tCurrency": {
+          "sISOCode": "BOB",
+          "sName": "Bolivianos"
+        },
+        "tCurrency": {
+          "sISOCode": "BRL",
+          "sName": "Brazil Real"
+        },
+        "tCurrency": {
+          "sISOCode": "BND",
+          "sName": "Brunei Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "CAD",
+          "sName": "Canadian Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "KYD",
+          "sName": "Cayman Island Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "GHC",
+          "sName": "Cedis"
+        },
+        "tCurrency": {
+          "sISOCode": "CRC",
+          "sName": "Colones"
+        },
+        "tCurrency": {
+          "sISOCode": "SVC",
+          "sName": "Colones"
+        },
+        "tCurrency": {
+          "sISOCode": "XAF",
+          "sName": "Communauté Financière Africaine Francs"
+        },
+        "tCurrency": {
+          "sISOCode": "XOF",
+          "sName": "Communauté Financière Africaine Francs"
+        },
+        "tCurrency": {
+          "sISOCode": "XPF",
+          "sName": "Comptoirs Franþais du Pacifique Francs"
+        },
+        "tCurrency": {
+          "sISOCode": "CDF",
+          "sName": "Congolese Francs"
+        },
+        "tCurrency": {
+          "sISOCode": "BAM",
+          "sName": "Convertible Marka"
+        },
+        "tCurrency": {
+          "sISOCode": "NIO",
+          "sName": "Cordobas"
+        },
+        "tCurrency": {
+          "sISOCode": "GMD",
+          "sName": "Dalasi"
+        },
+        "tCurrency": {
+          "sISOCode": "MKD",
+          "sName": "Denars"
+        },
+        "tCurrency": {
+          "sISOCode": "CSD",
+          "sName": "Dinars"
+        },
+        "tCurrency": {
+          "sISOCode": "IQD",
+          "sName": "Dinars"
+        },
+        "tCurrency": {
+          "sISOCode": "JOD",
+          "sName": "Dinars"
+        },
+        "tCurrency": {
+          "sISOCode": "KWD",
+          "sName": "Dinars"
+        },
+        "tCurrency": {
+          "sISOCode": "LYD",
+          "sName": "Dinars"
+        },
+        "tCurrency": {
+          "sISOCode": "SDD",
+          "sName": "Dinars"
+        },
+        "tCurrency": {
+          "sISOCode": "TND",
+          "sName": "Dinars"
+        },
+        "tCurrency": {
+          "sISOCode": "AED",
+          "sName": "Dirhams"
+        },
+        "tCurrency": {
+          "sISOCode": "STD",
+          "sName": "Dobras"
+        },
+        "tCurrency": {
+          "sISOCode": "FJD",
+          "sName": "Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "GYD",
+          "sName": "Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "JMD",
+          "sName": "Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "LRD",
+          "sName": "Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "NAD",
+          "sName": "Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "SBD",
+          "sName": "Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "SGD",
+          "sName": "Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "SRD",
+          "sName": "Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "TTD",
+          "sName": "Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "USD",
+          "sName": "Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "VND",
+          "sName": "Dong"
+        },
+        "tCurrency": {
+          "sISOCode": "AMD",
+          "sName": "Drams"
+        },
+        "tCurrency": {
+          "sISOCode": "XCD",
+          "sName": "East Caribbean Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "SZL",
+          "sName": "Emalangeni"
+        },
+        "tCurrency": {
+          "sISOCode": "CVE",
+          "sName": "Escudos"
+        },
+        "tCurrency": {
+          "sISOCode": "EUR",
+          "sName": "Euro"
+        },
+        "tCurrency": {
+          "sISOCode": "FKP",
+          "sName": "Falklands Pounds"
+        },
+        "tCurrency": {
+          "sISOCode": "HUF",
+          "sName": "Forint"
+        },
+        "tCurrency": {
+          "sISOCode": "BIF",
+          "sName": "Francs"
+        },
+        "tCurrency": {
+          "sISOCode": "DJF",
+          "sName": "Francs"
+        },
+        "tCurrency": {
+          "sISOCode": "GNF",
+          "sName": "Francs"
+        },
+        "tCurrency": {
+          "sISOCode": "KMF",
+          "sName": "Francs"
+        },
+        "tCurrency": {
+          "sISOCode": "GIP",
+          "sName": "Gibraltar Pounds"
+        },
+        "tCurrency": {
+          "sISOCode": "XAU",
+          "sName": "Gold Ounces"
+        },
+        "tCurrency": {
+          "sISOCode": "HTG",
+          "sName": "Gourdes"
+        },
+        "tCurrency": {
+          "sISOCode": "GBP",
+          "sName": "Great Brittain Pounds"
+        },
+        "tCurrency": {
+          "sISOCode": "PYG",
+          "sName": "Guarani"
+        },
+        "tCurrency": {
+          "sISOCode": "HKD",
+          "sName": "Hong Kong Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "UAH",
+          "sName": "Hryvnia"
+        },
+        "tCurrency": {
+          "sISOCode": "XDR",
+          "sName": "International Monetary Fund (IMF) Special Drawing Rights"
+        },
+        "tCurrency": {
+          "sISOCode": "PGK",
+          "sName": "Kina"
+        },
+        "tCurrency": {
+          "sISOCode": "LAK",
+          "sName": "Kips"
+        },
+        "tCurrency": {
+          "sISOCode": "CZK",
+          "sName": "Koruny"
+        },
+        "tCurrency": {
+          "sISOCode": "SKK",
+          "sName": "Koruny"
+        },
+        "tCurrency": {
+          "sISOCode": "NOK",
+          "sName": "Krone"
+        },
+        "tCurrency": {
+          "sISOCode": "DKK",
+          "sName": "Kroner"
+        },
+        "tCurrency": {
+          "sISOCode": "SEK",
+          "sName": "Kronor"
+        },
+        "tCurrency": {
+          "sISOCode": "ISK",
+          "sName": "Kronur"
+        },
+        "tCurrency": {
+          "sISOCode": "EEK",
+          "sName": "Krooni"
+        },
+        "tCurrency": {
+          "sISOCode": "HRK",
+          "sName": "Kuna"
+        },
+        "tCurrency": {
+          "sISOCode": "ZMK",
+          "sName": "Kwacha"
+        },
+        "tCurrency": {
+          "sISOCode": "MWK",
+          "sName": "Kwachas"
+        },
+        "tCurrency": {
+          "sISOCode": "AOA",
+          "sName": "Kwanza"
+        },
+        "tCurrency": {
+          "sISOCode": "MMK",
+          "sName": "Kyats"
+        },
+        "tCurrency": {
+          "sISOCode": "GEL",
+          "sName": "Lari"
+        },
+        "tCurrency": {
+          "sISOCode": "LVL",
+          "sName": "Lati"
+        },
+        "tCurrency": {
+          "sISOCode": "MDL",
+          "sName": "Lei"
+        },
+        "tCurrency": {
+          "sISOCode": "ALL",
+          "sName": "Leke"
+        },
+        "tCurrency": {
+          "sISOCode": "HNL",
+          "sName": "Lempiras"
+        },
+        "tCurrency": {
+          "sISOCode": "SLL",
+          "sName": "Leones"
+        },
+        "tCurrency": {
+          "sISOCode": "BGN",
+          "sName": "Leva"
+        },
+        "tCurrency": {
+          "sISOCode": "TRL",
+          "sName": "Liras [being phased out]"
+        },
+        "tCurrency": {
+          "sISOCode": "MTL",
+          "sName": "Liri"
+        },
+        "tCurrency": {
+          "sISOCode": "LTL",
+          "sName": "Litai"
+        },
+        "tCurrency": {
+          "sISOCode": "SPL",
+          "sName": "Luigini"
+        },
+        "tCurrency": {
+          "sISOCode": "LSL",
+          "sName": "Maloti"
+        },
+        "tCurrency": {
+          "sISOCode": "AZM",
+          "sName": "Manats"
+        },
+        "tCurrency": {
+          "sISOCode": "TMM",
+          "sName": "Manats"
+        },
+        "tCurrency": {
+          "sISOCode": "MZM",
+          "sName": "Meticais"
+        },
+        "tCurrency": {
+          "sISOCode": "MAD",
+          "sName": "Morocco Dirhams"
+        },
+        "tCurrency": {
+          "sISOCode": "NGN",
+          "sName": "Nairas"
+        },
+        "tCurrency": {
+          "sISOCode": "ERN",
+          "sName": "Nakfa"
+        },
+        "tCurrency": {
+          "sISOCode": "NPR",
+          "sName": "Nepal Rupees"
+        },
+        "tCurrency": {
+          "sISOCode": "ANG",
+          "sName": "Netherlands Antilles Guilders (also called Florins)"
+        },
+        "tCurrency": {
+          "sISOCode": "TWD",
+          "sName": "New Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "RON",
+          "sName": "New Lei"
+        },
+        "tCurrency": {
+          "sISOCode": "TRY",
+          "sName": "New Lira"
+        },
+        "tCurrency": {
+          "sISOCode": "ILS",
+          "sName": "New Shekels"
+        },
+        "tCurrency": {
+          "sISOCode": "NZD",
+          "sName": "New Zealand Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "BTN",
+          "sName": "Ngultrum"
+        },
+        "tCurrency": {
+          "sISOCode": null,
+          "sName": "No Universal Currency"
+        },
+        "tCurrency": {
+          "sISOCode": "PEN",
+          "sName": "Nuevos Soles"
+        },
+        "tCurrency": {
+          "sISOCode": "MRO",
+          "sName": "Ouguiyas"
+        },
+        "tCurrency": {
+          "sISOCode": "TOP",
+          "sName": "Pa'anga"
+        },
+        "tCurrency": {
+          "sISOCode": "XPD",
+          "sName": "Palladium Ounces"
+        },
+        "tCurrency": {
+          "sISOCode": "MOP",
+          "sName": "Patacas"
+        },
+        "tCurrency": {
+          "sISOCode": "ARS",
+          "sName": "Pesos"
+        },
+        "tCurrency": {
+          "sISOCode": "CLP",
+          "sName": "Pesos"
+        },
+        "tCurrency": {
+          "sISOCode": "COP",
+          "sName": "Pesos"
+        },
+        "tCurrency": {
+          "sISOCode": "CUP",
+          "sName": "Pesos"
+        },
+        "tCurrency": {
+          "sISOCode": "DOP",
+          "sName": "Pesos"
+        },
+        "tCurrency": {
+          "sISOCode": "MXN",
+          "sName": "Pesos"
+        },
+        "tCurrency": {
+          "sISOCode": "PHP",
+          "sName": "Pesos"
+        },
+        "tCurrency": {
+          "sISOCode": "UYU",
+          "sName": "Pesos"
+        },
+        "tCurrency": {
+          "sISOCode": "XPT",
+          "sName": "Platinum Ounces"
+        },
+        "tCurrency": {
+          "sISOCode": "CYP",
+          "sName": "Pounds"
+        },
+        "tCurrency": {
+          "sISOCode": "EGP",
+          "sName": "Pounds"
+        },
+        "tCurrency": {
+          "sISOCode": "GGP",
+          "sName": "Pounds"
+        },
+        "tCurrency": {
+          "sISOCode": "IMP",
+          "sName": "Pounds"
+        },
+        "tCurrency": {
+          "sISOCode": "JEP",
+          "sName": "Pounds"
+        },
+        "tCurrency": {
+          "sISOCode": "LBP",
+          "sName": "Pounds"
+        },
+        "tCurrency": {
+          "sISOCode": "SHP",
+          "sName": "Pounds"
+        },
+        "tCurrency": {
+          "sISOCode": "SYP",
+          "sName": "Pounds"
+        },
+        "tCurrency": {
+          "sISOCode": "BWP",
+          "sName": "Pulas"
+        },
+        "tCurrency": {
+          "sISOCode": "GTQ",
+          "sName": "Quetzales"
+        },
+        "tCurrency": {
+          "sISOCode": "IRR",
+          "sName": "Rials"
+        },
+        "tCurrency": {
+          "sISOCode": "OMR",
+          "sName": "Rials"
+        },
+        "tCurrency": {
+          "sISOCode": "QAR",
+          "sName": "Rials"
+        },
+        "tCurrency": {
+          "sISOCode": "YER",
+          "sName": "Rials"
+        },
+        "tCurrency": {
+          "sISOCode": "KHR",
+          "sName": "Riels"
+        },
+        "tCurrency": {
+          "sISOCode": "MYR",
+          "sName": "Ringgits"
+        },
+        "tCurrency": {
+          "sISOCode": "SAR",
+          "sName": "Riyals"
+        },
+        "tCurrency": {
+          "sISOCode": "BYR",
+          "sName": "Rubles"
+        },
+        "tCurrency": {
+          "sISOCode": "RUB",
+          "sName": "Rubles"
+        },
+        "tCurrency": {
+          "sISOCode": "MVR",
+          "sName": "Rufiyaa"
+        },
+        "tCurrency": {
+          "sISOCode": "INR",
+          "sName": "Rupees"
+        },
+        "tCurrency": {
+          "sISOCode": "LKR",
+          "sName": "Rupees"
+        },
+        "tCurrency": {
+          "sISOCode": "MUR",
+          "sName": "Rupees"
+        },
+        "tCurrency": {
+          "sISOCode": "PKR",
+          "sName": "Rupees"
+        },
+        "tCurrency": {
+          "sISOCode": "SCR",
+          "sName": "Rupees"
+        },
+        "tCurrency": {
+          "sISOCode": "IDR",
+          "sName": "Rupiahs"
+        },
+        "tCurrency": {
+          "sISOCode": "RWF",
+          "sName": "Rwanda Francs"
+        },
+        "tCurrency": {
+          "sISOCode": "RSD",
+          "sName": "Serbian Dinar"
+        },
+        "tCurrency": {
+          "sISOCode": "KES",
+          "sName": "Shillings"
+        },
+        "tCurrency": {
+          "sISOCode": "SOS",
+          "sName": "Shillings"
+        },
+        "tCurrency": {
+          "sISOCode": "TZS",
+          "sName": "Shillings"
+        },
+        "tCurrency": {
+          "sISOCode": "UGX",
+          "sName": "Shillings"
+        },
+        "tCurrency": {
+          "sISOCode": "XAG",
+          "sName": "Silver Ounces"
+        },
+        "tCurrency": {
+          "sISOCode": "TJS",
+          "sName": "Somoni"
+        },
+        "tCurrency": {
+          "sISOCode": "KGS",
+          "sName": "Soms"
+        },
+        "tCurrency": {
+          "sISOCode": "ZAR",
+          "sName": "South Africa Rands"
+        },
+        "tCurrency": {
+          "sISOCode": "UZS",
+          "sName": "Sums"
+        },
+        "tCurrency": {
+          "sISOCode": "CHF",
+          "sName": "Swiss Francs"
+        },
+        "tCurrency": {
+          "sISOCode": "BDT",
+          "sName": "Taka"
+        },
+        "tCurrency": {
+          "sISOCode": "WST",
+          "sName": "Tala"
+        },
+        "tCurrency": {
+          "sISOCode": "KZT",
+          "sName": "Tenge"
+        },
+        "tCurrency": {
+          "sISOCode": "SIT",
+          "sName": "Tolars"
+        },
+        "tCurrency": {
+          "sISOCode": "MNT",
+          "sName": "Tugriks"
+        },
+        "tCurrency": {
+          "sISOCode": "TVD",
+          "sName": "Tuvalu Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "VUV",
+          "sName": "Vatu"
+        },
+        "tCurrency": {
+          "sISOCode": "KPW",
+          "sName": "Won"
+        },
+        "tCurrency": {
+          "sISOCode": "KRW",
+          "sName": "Won"
+        },
+        "tCurrency": {
+          "sISOCode": "JPY",
+          "sName": "Yen"
+        },
+        "tCurrency": {
+          "sISOCode": "CNY",
+          "sName": "Yuan Renminbi"
+        },
+        "tCurrency": {
+          "sISOCode": "ZWD",
+          "sName": "Zimbabwe Dollars"
+        },
+        "tCurrency": {
+          "sISOCode": "PLN",
+          "sName": "Zlotych"
+        }
+      }
+    }
+  }
+}

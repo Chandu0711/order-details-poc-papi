@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="subflowimplementation-test-suite.xml" />
+	<munit:test name="subflowimplementation-test-suite-insert_subflowTest" doc:id="97a87e04-ec45-4fc1-a3e1-0cf20a1b4ec2" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="38a27e46-68d7-4a36-bc5b-01de40593078" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="insert Request" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="85dcb757-cef1-4c98-a755-c913de0ef423" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="a134c63d-bf7b-4c7c-8def-8946c550332a" >
+				<munit:payload value="#[output application/json&#10;---&#10;readUrl('classpath://sample_data/sampleinput.json','application/json')]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to insert_subflow" doc:id="962a16a8-7e75-48ee-b85e-4ae242253b2f" name="insert_subflow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="7aafc79f-1a11-4f59-8d6c-423efe1346c6" is="#[MunitTools::notNullValue()]" expression="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<!-- [STUDIO:"subflowimplementation-test-suite-sisowebservicesubflowTest"]<munit:test name="subflowimplementation-test-suite-sisowebservicesubflowTest" doc:id="f401627c-2069-4ee9-8856-4f3f4b4ea044" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="d7062dc2-fb67-403e-87e8-dab489a405cf" processor="sub-flow">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="5f3bec9b-b028-4a0f-8fd1-8fe0efa7d78c" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="fb0f6fab-3e3b-4e37-a2d0-d46a98658859" >
+				<munit:payload value="#[output application/json&#10;&#45;&#45;-&#10;readUrl('classpath://sample_data/sampleinput.json','application/json')&#93;" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to sisowebservicesubflow" doc:id="85ec4120-7a65-4ba8-be14-e696f019d194" name="sisowebservicesubflow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="47296f4b-a1c5-4622-9465-5065d1e4fe96" is="#[MunitTools::notNullValue()&#93;" expression="#[payload&#93;"/>
+		</munit:validation>
+	</munit:test> [STUDIO] -->
+	<munit:test name="subflowimplementation-test-suite-update_subflowTest" doc:id="8beef9c2-326a-456a-91bc-7456017e7a21" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="8ecebc15-1f64-4819-954d-915cc179c772" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="update request" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="a045aecc-1efc-4de6-a549-cdd5af4199e5" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="97473680-6bb5-4681-8249-411118e74df0" >
+				<munit:payload value="#[output application/json&#10;---&#10;readUrl('classpath://sample_data/updateinput.json','application/json')]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to update_subflow" doc:id="f5e73e84-7ada-4aec-8811-27aecdebf7d7" name="update_subflow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="3bdfeacb-0482-4315-8b55-ca63b6d4dcea" is="#[MunitTools::notNullValue()]" expression="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="subflowimplementation-test-suite-consumesubflowimplementationTest" doc:id="65dec097-e285-41fc-b65b-3ede468aab79" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="c5f15693-24ff-4e86-b1f8-e6073d6ff1f9" processor="sub-flow">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="010c08e4-4169-42db-aac5-8111e341f55c" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="24d2d685-4463-4e47-9aeb-e450cecd346f" >
+				<munit:payload value="#[output application/json&#10;---&#10;readUrl('classpath://sample_data/consumesubflowinut.json','application/json')]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to consumesubflowimplementation" doc:id="5f4e4355-7b04-4eeb-9703-ca3112862d53" name="consumesubflowimplementation"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="92e60cdf-fc97-489a-a048-758e5236cbc5" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

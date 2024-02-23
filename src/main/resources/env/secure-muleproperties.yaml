@@ -1,0 +1,11 @@
+database:
+  user: "![xcaco2Yu5NtJNWrOM0Q+kA==]"
+  password: "![1K7UrjScMWVPlWH7AAAWSQ==]"
+  
+jmsConfig:
+ username: "![Pyz0d+K7ZKpg/rpJfbTYPw==]"
+ password: "![Pyz0d+K7ZKpg/rpJfbTYPw==]"
+ 
+clientCredentials:
+ clientid: "![Z0kYSidIn0HkTbWojRuoxhiR6TACPQjWw7trx0OrJPGIC6CLL+1VzvMHx0OIBv93]"
+ clientsecret: "![A+9E1HLbWgV9qXqCpxbqnpd68DsWwqazqk7FSawV5J+Ed6aENCCVMeVBpf7MjptG]"

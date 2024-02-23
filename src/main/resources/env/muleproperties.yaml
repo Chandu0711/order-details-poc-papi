@@ -1,0 +1,29 @@
+httpListener:
+  path1: "/publish"
+  path2: "/consume"
+  host: "0.0.0.0"
+  port1: "8081"
+  port2: "8082"
+  readTimeout: "30000"
+  
+jmsConfig:
+ brokerUrl: "tcp://PS-HYD-LP-306:61616"
+ destination: "Order-details"
+ maxWait: "5"
+ 
+httpRequest:
+ path: "/api/order"
+ host: "0.0.0.0"
+ port: "8083"
+ 
+database:
+ port: "3306"
+ host: "127.0.0.1"
+ schema: "chandra_db"
+ 
+response:
+ timeout: "500000"
+ 
+WSDL:
+ number: "numconversion.wsdl"
+ siso: "siso.wsdl"

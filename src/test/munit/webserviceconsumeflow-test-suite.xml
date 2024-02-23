@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="webserviceconsumeflow-test-suite.xml" />
+	<munit:test name="webserviceconsumeflow-test-suite-numberconsumesubflowTest" doc:id="62a68ba0-f9da-4487-baf0-016464e36165" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="f2cec736-236e-4ccd-8e56-f06a5d7d6b30" processor="sub-flow">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="3f2a37b9-a263-4344-82ba-faf8c31915d4" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[payload]" />
+				</munit-tools:then-return>
+			
+</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when" doc:id="9ae4f101-2b04-47c0-83cb-165f7d815023" processor="wsc:consume">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="36bfba43-9246-46f1-8084-6c952889ccee" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="3001e38c-24e7-4724-b110-6bc83742d96c" >
+				<munit:payload value="#[output application/json&#10;---&#10;readUrl('classpath://sample_data/sampleinput.json','application/json')]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to numberconsumesubflow" doc:id="75b7e7e2-11e9-4b75-aa36-8c294ff676a4" name="numberconsumesubflow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="1f269fbe-5cb1-4e55-8a99-119189c442ac" is="#[MunitTools::notNullValue()]" expression="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="webserviceconsumeflow-test-suite-sisocodeconsumesubflowTest" doc:id="329711c0-8cc7-497b-a552-e639c012a5e2" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="ce8b5871-2557-4589-b2b5-ca93fb068b8e" processor="wsc:consume">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="siso consume" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="c4c09283-76f4-4512-943f-ccad2aa9e8e0" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[MunitTools::getResourceAsString('sample_data/consumeddata.json')]" mediaType="application/json" encoding="UTF-8" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		
+</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="77d341ac-c036-4494-afbc-f19f91b7dd52" >
+				<munit:payload value="#[output application/json&#10;---&#10;readUrl('classpath://sample_data/sisoinput.json','application/json')]" mediaType="application/json" />
+
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to sisocodeconsumesubflow" doc:id="eb88323d-5636-40d6-bf65-ff22a67e4953" name="sisocodeconsumesubflow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="d7e0aed5-3d01-4d70-a2e5-135226854e44" is="#[MunitTools::notNullValue()]" expression="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+
+</mule>

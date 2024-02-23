@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:apikit-soap="http://www.mulesoft.org/schema/mule/apikit-soap"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/apikit-soap http://www.mulesoft.org/schema/mule/apikit-soap/current/mule-apikit-soap.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd">
+	<sub-flow name="consumesubflowimplementation" doc:id="010c08e4-4169-42db-aac5-8111e341f55c" >
+		<logger level="INFO" doc:name="payload" doc:id="662190e1-1ff9-47fb-8ff2-6fb5cb0eb37f" message="#[payload]"/>
+		<foreach doc:name="For Each" doc:id="398b5ba4-370b-4943-95e5-20b901dfae7a" >
+			<flow-ref doc:name="Flow Reference for number webservice" doc:id="194c3399-397a-45a6-a399-f87537ae49b9" name="numberwebservicesubflow" />
+			<logger level="INFO" doc:name="printing payload" doc:id="95de3fda-f6c0-453a-be19-c8e1f50271c9" message="#[payload]"/>
+			<ee:transform doc:name="updated payload" doc:id="645558c7-0567-44b6-960b-12b0a290d0b3" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+			<flow-ref doc:name="Flow Reference for siso webservice" doc:id="f12a4f86-8d7c-425f-be23-324a7b5734fd" name="sisowebservicesubflow"/>
+			<logger level="INFO" doc:name="printing payload" doc:id="b068545e-a520-466b-b35a-cf8d19e9d742" message="#[payload]"/>
+			<ee:transform doc:name="updated payload" doc:id="985653a7-6063-454c-b191-fcde003be567" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"code":payload.ISOCode,
+	"orderid":payload.orderid,
+	"ordername":payload.ordername,
+	"orderdate":payload.orderdate,
+	"orderprice":payload.orderprice,
+	"orderqt":payload.orderqt
+}]]></ee:set-payload>
+				</ee:message>
+				<ee:variables >
+					<ee:set-variable variableName="oldpayload" ><![CDATA[{
+	"code":payload.ISOCode,
+	"orderid":payload.orderid,
+	"ordername":payload.ordername,
+	"orderdate":payload.orderdate,
+	"orderprice":payload.orderprice,
+	"orderqt":payload.orderqt
+}]]></ee:set-variable>
+				</ee:variables>
+			</ee:transform>
+			<db:select doc:name="Select" doc:id="08fbefd8-f33f-40c9-bd74-3566a5435199" config-ref="Database_Config">
+				<db:sql ><![CDATA[select * from orders where orderid =:orderid]]></db:sql>
+				<db:input-parameters ><![CDATA[#[{
+	'orderid':payload.orderid
+}]]]></db:input-parameters>
+			</db:select>
+			<choice doc:name="Choice" doc:id="d15ecb57-6f18-40cd-b470-6b0599724d64">
+			<when expression="#[isEmpty(payload)]">
+					<flow-ref doc:name="Flow Reference for insert" doc:id="74fa1077-3839-4c9e-b1d1-aef2613e78a4" name="insert_subflow"/>
+			</when>
+				<otherwise>
+					<flow-ref doc:name="Flow Reference for update" doc:id="64de0f94-db0c-4940-9827-6cad3f2d31b4" name="update_subflow"/>
+			</otherwise>
+		</choice>
+		</foreach>
+	</sub-flow>
+	<sub-flow name="insert_subflow" doc:id="1eee540a-5f02-4733-af75-d2f60ed76a19" >
+		<logger level="INFO" doc:name="oldpayload" doc:id="3b0611b6-7f27-4471-b3a4-1fc9888d60f7" message="#[vars.oldpayload]" />
+		<ee:transform doc:name="input data" doc:id="a6aa4844-5b2a-4245-a4d2-bc59d929c009" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+vars.oldpayload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<http:request method="POST" doc:name="insert Request" doc:id="85dcb757-cef1-4c98-a755-c913de0ef423" config-ref="HTTP_Request_configuration" path="${httpRequest.path}" responseTimeout="${response.timeout}"/>
+		<logger level="INFO" doc:name="success message" doc:id="99e2989c-b189-4877-b54c-56c191d0eb08" message='#["inserted successfully"]' />
+	</sub-flow>
+	<sub-flow name="update_subflow" doc:id="2d941201-971f-4aa1-9cd9-6dcbc4f13e8b" >
+		<logger level="INFO" doc:name="payload" doc:id="c69be93d-697c-4535-8584-6a69d12b056f" message="#[vars.oldpayload]" />
+		<ee:transform doc:name="input data" doc:id="c78a2e65-8a03-40d5-b76d-d1f8a4c837da" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  "code": vars.oldpayload.code,
+  "orderprice": vars.oldpayload.orderprice,
+  "orderid": vars.oldpayload.orderid
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logging payload" doc:id="c08263f7-27a8-4e12-9fd7-b0ec8ef2f962" message="#[payload]" />
+		<http:request method="PATCH" doc:name="update request" doc:id="a045aecc-1efc-4de6-a549-cdd5af4199e5" config-ref="HTTP_Request_configuration" path="${httpRequest.path}" responseTimeout="${response.timeout}"/>
+		<logger level="INFO" doc:name="success message" doc:id="3d486564-9932-422c-89c4-08ec15f9743e" message='#["updated successfully"]' />
+	</sub-flow>
+	<sub-flow name="numberwebservicesubflow" doc:id="3f2a37b9-a263-4344-82ba-faf8c31915d4" >
+		<ee:transform doc:name="input payload" doc:id="b07a1fc3-cf61-488c-ae9a-56e397dcffba" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="initialpayload" ><![CDATA[payload]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference for num soap call " doc:id="fa35a290-a755-47f6-9298-375498a81f5d" name="numberconsumesubflow" />
+		<logger level="INFO" doc:name="consumed_num" doc:id="8e77bb40-98b1-4097-b5d1-4a281e37a58b" message="#[vars.characterdollar]" />
+		<ee:transform doc:name="mapped payload" doc:id="aad2b51f-ae22-4cf1-be78-3e6bc5226de8" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+fun calculateOrderQt(orderPrice, orderQt) =
+  if (orderQt == null or orderQt == "" or orderPrice == null or orderPrice == "")
+        0
+   else orderPrice * orderQt
+---
+{
+  ISOCode: vars.initialpayload.ISOCode, 
+  orderid: vars.initialpayload.orderid,
+  ordername: vars.initialpayload.ordername,
+  orderdate: vars.initialpayload.orderdate,
+  orderprice: if (vars.initialpayload.orderprice != null) vars.characterdollar.result else null,
+  orderqt: calculateOrderQt(vars.initialpayload.orderprice, vars.initialpayload.orderqt)
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="sisowebservicesubflow" doc:id="5f3bec9b-b028-4a0f-8fd1-8fe0efa7d78c" >
+		<ee:transform doc:name="input payload" doc:id="e2796285-7fd6-4c20-ae40-ded73b90a4f7">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+			<ee:variables>
+				<ee:set-variable variableName="initialpayload"><![CDATA[payload]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference for siso soap call" doc:id="7a3a7783-c4c1-41bf-8acd-68c8f9cdcb9a" name="sisocodeconsumesubflow" />
+		<logger level="INFO" doc:name="consumed_siso" doc:id="56ccf7cf-bf63-45b6-a0b9-faa69bc002e1" message="#[payload]" />
+		<ee:transform doc:name="mapped payload" doc:id="a7ad1ef4-cfb0-460c-9cc6-911ea41cc09a">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  ISOCode: vars.listofcurrency,
+  orderid: vars.initialpayload.orderid,
+  ordername: vars.initialpayload.ordername,
+  orderdate: vars.initialpayload.orderdate,
+  orderprice: vars.initialpayload.orderprice,
+  orderqt: vars.initialpayload.orderqt
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>
